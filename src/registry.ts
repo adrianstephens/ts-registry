@@ -401,6 +401,11 @@ export class KeyPromise implements KeyBase {
 			root = this.getRootAndPath()[0];
 		return hosts32[root.name] === root ? '32' : '64';
 	}
+	public getHost(root?:KeyPromise) : string|undefined {
+		if (!root)
+			root = this.getRootAndPath()[0];
+		return root.name;
+	}
 
 	public get path() {
 		return this.getRootAndPath()[1];
@@ -650,8 +655,10 @@ export function reset(view?: string, dirty?: KeyBase[]) {
 }
 
 
-export async function importReg(file: string, view?: string, dirty?: KeyBase[]) : Promise<boolean> {
+export async function importReg(file: string, machine?: string, view?: string, dirty?: KeyBase[]) : Promise<boolean> {
 	const args = ['IMPORT', file];
+	if (machine)
+		args.push('/machine', machine);
 	if (view)
 		args.push('/reg:' + view);
 
