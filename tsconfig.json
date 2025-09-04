@@ -19,8 +19,7 @@
 		]
 	},
 	"include": [
-		"src/index.ts",
-		"src/cli.ts"
+		"src/registry.ts"
 	],
 	"exclude": [
 		"node_modules",

@@ -55,6 +55,39 @@
             "request": "launch",
             "command": "ts-node ./scripts/makelinks.ts",
             "cwd": "${workspaceFolder}"
-        }
+        },
+		{
+            "name": "Debug Reg",
+			"type":"cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/reg/reg.exe",
+            "args": [
+                //"IMPORT", "C:\\Users\\adrian\\AppData\\Local\\Temp\\temp.reg", "/machine", "inspiron7000"
+                "ADD", "\\\\inspiron7000\\HKEY_LOCAL_MACHINE\\SOFTWARE\\7-Zip", "/v", "Path64", "/t", "REG_SZ", "/d", "C:\\Program Files\\7-Zip\\\\", "/f", "/reg:64",
+             ],
+            "cwd": "${workspaceFolder}",
+			"sourceFileMap": {
+				"minkernel/crts/ucrt/src/appcrt":	"C:/Program Files (x86)/Windows Kits/10/Source/10.0.22621.0/ucrt",
+				"minkernel/crts":					"C:/Program Files (x86)/Windows Kits/10/Source/10.0.22621.0",
+				"VCCRT/vcruntime/inc": 				"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/crt/src/vcruntime",
+			},
+			"preLaunchTask": "Build reg.exe",
+            "externalConsole": true
+		},
+		{
+            "name": "Attach Debugger",
+			"type":"cppvsdbg",
+            "request": "attach",
+			"processId":"${command:pickProcess}",
+			"sourceFileMap": {
+				"minkernel/crts/ucrt/src/appcrt":	"C:/Program Files (x86)/Windows Kits/10/Source/10.0.22621.0/ucrt",
+				"minkernel/crts":					"C:/Program Files (x86)/Windows Kits/10/Source/10.0.22621.0",
+				"VCCRT/vcruntime/inc": 				"C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/crt/src/vcruntime",
+				"D:\\a\\_work\\1\\s\\src\\vctools\\delayimp":"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include",
+				"D:\\a\\_work\\1\\s\\src\\vctools\\crt\\vcstartup\\src\\misc": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\crt\\src\\vcruntime"
+
+			},
+		}
+
     ]
 }

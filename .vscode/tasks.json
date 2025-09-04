@@ -9,10 +9,85 @@
 			"label": "npm: build",
 			"detail": "tsc"
 		},
+				{
+			"type": "shell",
+			"label": "Build reg.exe",
+			"command": "clang-cl",
+			"args": [
+				"-I", "node_modules\\@isopodlabs\\napi\\include",
+				"-g",
+				"-std:c++17",
+				"reg\\reg.cpp",
+				"-DUNICODE", "-D_UNICODE", "-DWIN32_LEAN_AND_MEAN",
+				"-o", "reg\\reg.exe",
+				"/MTd",
+				"/link", "advapi32.lib"
+			],
+			"problemMatcher": {
+				"owner": "cpp",
+				"fileLocation": [
+					"relative", "${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "(.*)\\((.*)\\) *: *(warning|error) *: *(.*)",
+					"file": 1,
+					"location": 2,
+					"severity": 3,
+					"message": 4
+				}
+			},
+			"group":  "build",
+		},
 		{
 			"type": "shell",
-			"label": "makelinks",
-			"command": "ts-node ./scripts/makelinks.ts",
+			"label": "Build Release reg.exe",
+			"command": "clang-cl",
+			"args": [
+				"-I", "node_modules\\@isopodlabs\\napi\\include",
+				"-std:c++17",
+				"reg\\reg.cpp",
+				"-DUNICODE", "-D_UNICODE", "-DWIN32_LEAN_AND_MEAN",
+				"-O2",
+				"-o", "reg\\reg.exe",
+				"/MD",
+				"/link", "advapi32.lib"
+			],
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group":  "build",
+		},
+		{
+			"type": "shell",
+			"label": "Build release reg-NAPI",
+			"command": "clang-cl",
+			"args": [
+				"-I", "node_modules\\@isopodlabs\\napi\\include",
+				"-I", "reg\\electron\\include\\node",
+				"/LD",
+				"-std:c++17",
+				"reg\\reg-napi.cpp",
+				"-DWIN32_LEAN_AND_MEAN", "-D_CRT_SECURE_NO_WARNINGS",
+				"-o", "reg\\reg-napi.node",
+				"-link","/DELAYLOAD:node.exe",
+				"reg\\electron\\node.lib",
+				"Advapi32.lib",
+				//"/DEFAULTLIB:Delayimp.lib", 
+			],
+			"problemMatcher": {
+				"owner": "cpp",
+				"fileLocation": [
+					"relative", "${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "(.*)\\((.*)\\) *: *(warning|error) *: *(.*)",
+					"file": 1,
+					"location": 2,
+					"severity": 3,
+					"message": 4
+				}
+			},
+			"group":  "build",
 		},
 		{
 			"type": "shell",
@@ -22,7 +97,7 @@
 				"command": "git add . & npm version ${input:version} --force",
 			},
 			"problemMatcher": [],
-			"dependsOn": ["npm: build", "makelinks"]
+			"dependsOn": ["npm: build"]
 		},
 		{
 			"type": "shell",
@@ -36,7 +111,7 @@
 			"label": "PACKAGE",
 			"command": "npm pack",
 			"problemMatcher": [],
-			"dependsOn": ["npm: build", "makelinks"]
+			"dependsOn": ["npm: build"]
 		},
 	],
 	"inputs": [

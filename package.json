@@ -1,19 +1,12 @@
 {
-	"name": "@isopodlabs/make",
-	"version": "0.5.1",
-	"description": "A package for reading and running makefiles with TypeScript.",
+	"name": "@isopodlabs/registry",
+	"version": "0.1.0",
+	"description": "A package for accessing the windows registry with TypeScript.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/adrianstephens/ts-make.git"
+		"url": "git+https://github.com/adrianstephens/ts-registry.git"
 	},
 	"main": "dist/index.js",
-	"bin": {
-		"make": "dist/cli.js"
-	},
-	"exports": {
-		".": "./dist/index.js",
-		"./cli": "./dist/cli.js"
-	},
 	"files": [
 		"dist/**/*.{js,d.ts}",
 		"README.md"
@@ -24,16 +17,15 @@
 		"patch": "ts-patch install"
 	},
 	"keywords": [
-		"makefile",
+		"registry",
 		"parser",
-		"gnu make",
-		"build",
 		"typescript",
 		"nodejs"
 	],
 	"author": "Adrian Stephens",
 	"license": "MIT",
 	"devDependencies": {
+		"@isopodlabs/napi": "^0.2.1",
 		"@types/node": "^22.13.8",
 		"eslint": "^9.21.0",
 		"ts-node": "^10.9.2",
