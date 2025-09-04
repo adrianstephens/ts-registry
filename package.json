@@ -1,12 +1,12 @@
 {
 	"name": "@isopodlabs/registry",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A package for accessing the windows registry with TypeScript.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/adrianstephens/ts-registry.git"
 	},
-	"main": "dist/index.js",
+	"main": "dist/registry.js",
 	"files": [
 		"dist/**/*.{js,d.ts}",
 		"README.md"
